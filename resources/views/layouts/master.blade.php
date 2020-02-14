@@ -65,7 +65,7 @@
         <script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/toastr/toastr.min.js')}}" type="text/javascript"></script>
 
-		@yield('page_scripts')
+		@yield('page_script')
 
 	</body>
 

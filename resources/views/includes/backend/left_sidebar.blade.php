@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="m-menu__item" aria-haspopup="true">
-                    <a href="{{route('admin.user.index')}}" class="m-menu__link ">
+                    <a href="{{route('admin.subscriber.index')}}" class="m-menu__link ">
                         <i class="m-menu__link-icon fa fa-user"></i>
                         <span class="m-menu__link-text">Subscribers</span>
                     </a>

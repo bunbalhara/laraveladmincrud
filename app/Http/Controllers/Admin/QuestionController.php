@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+        return view('admin.question.index', compact('questions'));
     }
 
     /**
@@ -24,7 +26,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.question.create');
     }
 
     /**

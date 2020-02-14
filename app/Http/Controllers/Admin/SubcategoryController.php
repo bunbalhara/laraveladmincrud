@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SubcategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        $subcategories = Subcategory::all();
+        return view('admin.subcategory.index',compact('subcategories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.subcategory.create');
     }
 
     /**
@@ -35,7 +38,26 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'category_id'=>'required',
+            'sub_category_name'=>'required',
+            'sub_category_order'=>'required',
+            'sub_category_status'=>'required',
+        ]);
+
+        if($validator->passes()){
+            $subcategory = new Subcategory();
+
+            $subcategory->category_id = $request->category_id;
+            $subcategory->sub_category_name = $request->sub_cateogry_name;
+            $subcategory->sub_category_order = $request->sub_category_order;
+            $subcategory->sub_category_status = $request->sub_category_status;
+
+            $subcategory->save();
+            return redirect('admin.subcategory.index')->with(['success'=>'New Subcategory Created successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
