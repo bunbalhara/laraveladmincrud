@@ -23,6 +23,7 @@
 		<link href="{{asset('assets/vendors/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/vendors/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/backend/css/custom.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 
 		@yield('page_styles')
 	</head>
@@ -62,8 +63,13 @@
 		<script src="{{asset('assets/vendors/base/vendors.bundle.js')}}" type="text/javascript"></script>
 		<script src="{{asset('assets/vendors/base/scripts.bundle.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/toastr/toastr.min.js')}}" type="text/javascript"></script>
 
 		@yield('page_scripts')
 
 	</body>
+
+    @if ($message = Session::get('success'))
+        <script>toastr.success('{!! $message !!}')</script>
+    @endif
 </html>

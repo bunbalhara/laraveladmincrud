@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -16,6 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
+
         return view('admin.article.index',compact('articles'));
     }
 
@@ -37,7 +39,37 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+                'noseId'=>'required',
+                'articleTitle'=>'required',
+                'articleOrder'=>'required',
+                'articleType'=>'required',
+                'articleLong'=>'required',
+                'articleNoHide'=>'required',
+                'articleShort'=>'required',
+            ]);
+
+        if($validator->passes()){
+
+            $article = new Article();
+            $article->nose_id=$request->noseId;
+            $article->articleTitle = $request->articleTitle;
+            $article->articleOrder = $request->articleOrder;
+            $article->articleShort = $request->articleShort;
+            $article->articleLong = $request->articleLong;
+            $article->articleNoHide = $request->articleNoHide;
+            $article->writerId = $request->writerId;
+            $request->articleStatus = isset($request->articleStatus);
+            $article->type = $request->articleType;
+
+            $article->save();
+
+            return redirect()->route('admin.article.index')->with('success', 'New Article created Successfully');
+        }
+
+        return back()->withErrors($validator->errors()->all());
+
     }
 
     /**

@@ -32,7 +32,7 @@
             </div>
             <div class="col-sm-2">
                 <a href="javascript:void(0);" class="btn m-btn--square btn-outline-info" id="filter_btn" style="float:right;">
-                    Filter
+                    Export to CSV
                 </a>
             </div>
         </div>
@@ -89,24 +89,24 @@
                 @foreach($articles as $article)
                     <tr>
                         <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
-                        <td>{{$article->id}}</td>
+                        <td>{{$article->nose_id}}</td>
+                        <td>{{$article->articleTitle}}</td>
+                        <td>{{$article->articleShort}}</td>
+                        <td>{{$article->articleLong}}</td>
+                        <td>{{$article->articleNoHide}}</td>
+                        <td>{{$article->articleDate}}</td>
+                        <td>{{$article->writerId}}</td>
+                        <td>{{$article->articleOrder}}</td>
+                        <td>{{$article->articleStatus}}</td>
+                        <td>{{$article->articleType}}</td>
                         <td>
-                            <a href="{{route('admin.user.show', $user->username)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Detail">
+                            <a href="{{route('admin.article.show', $article->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Detail">
                                 <i class="la la-eye"></i>
                             </a>
-                            <a href="{{route('admin.user.edit', $user->username)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
+                            <a href="{{route('admin.article.edit', $article->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
                                 <i class="la la-edit"></i>
                             </a>
-                            <a href="{{route('admin.user.destroy', $user->username)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+                            <a href="{{route('admin.article.destroy',$article->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
                                 <i class="la la-remove"></i>
                             </a>
                         </td>

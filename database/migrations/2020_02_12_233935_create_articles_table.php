@@ -23,6 +23,8 @@ class CreateArticlesTable extends Migration
             $table->text('articleNoHide');
             $table->timestamp('articleDate')->useCurrent();
             $table->integer('writerId')->default(1);
+            $table->integer('articleOrder')->default(1);
+            $table->integer('articleStatus')->default(1);
             $table->integer('type')->default(1);
             $table->timestamps();
         });
