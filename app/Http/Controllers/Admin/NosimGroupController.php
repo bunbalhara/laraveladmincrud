@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\NosimGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class NosimGroupController extends Controller
 {
@@ -14,7 +16,8 @@ class NosimGroupController extends Controller
      */
     public function index()
     {
-        //
+        $nosimGroups = NosimGroup::all();
+        return view('admin.nosimgroup.index', compact('nosimGroups'));
     }
 
     /**
@@ -24,7 +27,7 @@ class NosimGroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.nosimgroup.create');
     }
 
     /**
@@ -35,7 +38,25 @@ class NosimGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'subcat_id'=>'required',
+            'name'=>'required',
+            'ord'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $nosimGroup = new NosimGroup();
+
+            $nosimGroup->subcat_id = $request->subcat_id;
+            $nosimGroup->name = $request->name;
+            $nosimGroup->ord = $request->ord;
+
+            $nosimGroup->save();
+
+            return redirect()->route('admin.nosimGroup.index')->with(['success'=>'New NosimGroup created Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
