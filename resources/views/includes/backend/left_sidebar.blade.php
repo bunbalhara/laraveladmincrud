@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="m-menu__item" aria-haspopup="true">
-                    <a href="{{route('admin.fileUpload.index')}}" class="m-menu__link ">
+                    <a href="{{route('admin.fileupload.index')}}" class="m-menu__link ">
                         <i class="m-menu__link-icon fa fa-user"></i>
                         <span class="m-menu__link-text">File Uploads</span>
                     </a>

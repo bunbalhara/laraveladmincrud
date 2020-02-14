@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CouponController extends Controller
 {
@@ -37,7 +38,24 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(),[
+           'code'=>'required',
+           'status'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $coupon = new Coupon();
+
+            $coupon->code = $request->code;
+            $coupon->status = $request->status;
+
+            $coupon->save();
+
+            return redirect()->route('admin.coupon.index')->with(['success'=>'New Coupon Created Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**

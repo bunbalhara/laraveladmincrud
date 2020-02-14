@@ -25,7 +25,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin','middleware
 
     Route::resource('coupon', 'CouponController');
 
-    Route::resource('fileUpload', 'FileUploadController');
+    Route::resource('fileupload', 'FileUploadController');
 
     Route::resource('matalot', 'MatalotController');
 

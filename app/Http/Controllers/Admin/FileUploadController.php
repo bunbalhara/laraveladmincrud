@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\FileUpload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class FileUploadController extends Controller
 {
@@ -37,7 +38,21 @@ class FileUploadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'file_name'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $fileupload = new FileUpload();
+
+            $fileupload->file_name = $request->file_name ;
+
+            $fileupload->save();
+
+            return redirect()->route('admin.fileupload.index')->with(['success'=>'New FileUpload Created successfully!']);
+        }
+
+        return  back()->withErrors($validator->errors()->all());
     }
 
     /**

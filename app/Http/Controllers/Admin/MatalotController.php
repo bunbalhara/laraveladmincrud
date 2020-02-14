@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Matalot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class MatalotController extends Controller
 {
@@ -15,8 +17,8 @@ class MatalotController extends Controller
      */
     public function index()
     {
-        $matolots = Matalot::all();
-        return view('admin.matolot.index',compact('matolots'));
+        $matalots = Matalot::all();
+        return view('admin.matalot.index',compact('matalots'));
     }
 
     /**
@@ -26,7 +28,7 @@ class MatalotController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.matalot.create');
     }
 
     /**
@@ -37,7 +39,21 @@ class MatalotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'title'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $matalot = new Matalot();
+
+            $matalot->matalaTitle = $request->title;
+
+            $matalot->save();
+
+            return redirect()->route('admin.matalot.index')->with(['success'=>'New Matalot Created, Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
