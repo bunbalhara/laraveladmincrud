@@ -92,7 +92,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('admin.article.edit', compact('article'));
     }
 
     /**
@@ -104,7 +105,38 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'noseId'=>'required',
+            'articleTitle'=>'required',
+            'articleOrder'=>'required',
+            'articleType'=>'required',
+            'articleLong'=>'required',
+            'articleNoHide'=>'required',
+            'articleShort'=>'required',
+            'writerId'=>'required',
+        ]);
+
+        if($validator->passes()){
+
+            $article = Article::find($id);
+
+            $article->nose_id=$request->noseId;
+            $article->articleTitle = $request->articleTitle;
+            $article->articleOrder = $request->articleOrder;
+            $article->articleShort = $request->articleShort;
+            $article->articleLong = $request->articleLong;
+            $article->articleNoHide = $request->articleNoHide;
+            $article->writerId = $request->writerId;
+            $request->articleStatus = isset($request->articleStatus);
+            $article->type = $request->articleType;
+
+            $article->save();
+
+            return redirect()->route('admin.article.index')->with('success', 'New Article updated Successfully');
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -115,6 +147,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        $article->delete();
+        return back()->with(['success','One Article deleted successfully!']);
     }
 }

@@ -71,6 +71,7 @@
                     <th>Subcategory</th>
                     <th>Name</th>
                     <th>Order</th>
+                    <th>Created At</th>
                     <th>Action</th>
                 </tr>
                 </thead>
