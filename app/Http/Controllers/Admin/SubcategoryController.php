@@ -49,12 +49,12 @@ class SubcategoryController extends Controller
             $subcategory = new Subcategory();
 
             $subcategory->category_id = $request->category_id;
-            $subcategory->sub_category_name = $request->sub_cateogry_name;
+            $subcategory->sub_category_name = $request->sub_category_name;
             $subcategory->sub_category_order = $request->sub_category_order;
             $subcategory->sub_category_status = $request->sub_category_status;
 
             $subcategory->save();
-            return redirect('admin.subcategory.index')->with(['success'=>'New Subcategory Created successfully!']);
+            return redirect()->route('admin.subcategory.index')->with(['success'=>'New Subcategory Created successfully!']);
         }
 
         return back()->withErrors($validator->errors()->all());

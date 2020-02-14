@@ -90,10 +90,10 @@
                         <td>{{$subcategory->sub_category_status}}</td>
                         <td>{{$subcategory->enabledForFreeUsers}}</td>
                         <td>
-                            <a href="{{route('admin.subcategory.edit', $article->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
+                            <a href="{{route('admin.subcategory.edit', $subcategory->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
                                 <i class="la la-edit"></i>
                             </a>
-                            <a href="{{route('admin.subcategory.destroy',$article->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+                            <a href="{{route('admin.subcategory.destroy',$subcategory->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
                                 <i class="la la-remove"></i>
                             </a>
                         </td>
