@@ -104,6 +104,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

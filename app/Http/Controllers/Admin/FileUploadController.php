@@ -74,7 +74,8 @@ class FileUploadController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.fileupload.edit');
+        $fileupload = FileUpload::find($id);
+        return view('admin.fileupload.edit', compact('fileupload'));
     }
 
     /**
@@ -86,7 +87,21 @@ class FileUploadController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'file_name'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $fileupload = FileUpload::find($id);
+
+            $fileupload->file_name = $request->file_name ;
+
+            $fileupload->save();
+
+            return redirect()->route('admin.fileupload.index')->with(['success'=>'New FileUpload updated successfully!']);
+        }
+
+        return  back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -97,6 +112,7 @@ class FileUploadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        FileUpload::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

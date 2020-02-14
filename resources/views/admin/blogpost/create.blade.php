@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group m-form__group">
-                            <label for="sub_category_id">Article Type</label>
+                            <label for="sub_category_id">Subcategory</label>
                             <select class="form-control m-input m-input--square" name="sub_category_id" id="sub_category_id">
                                 <option value="1">Subcategory 1</option>
                                 <option value="2">Subcategory 2</option>

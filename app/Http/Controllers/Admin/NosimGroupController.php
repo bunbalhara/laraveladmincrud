@@ -78,7 +78,8 @@ class NosimGroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        $group = NosimGroup::find($id);
+        return view('admin.nosimgroup.edit', compact('group'));
     }
 
     /**
@@ -90,7 +91,25 @@ class NosimGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'subcat_id'=>'required',
+            'name'=>'required',
+            'ord'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $nosimGroup = NosimGroup::find($id);
+
+            $nosimGroup->subcat_id = $request->subcat_id;
+            $nosimGroup->name = $request->name;
+            $nosimGroup->ord = $request->ord;
+
+            $nosimGroup->save();
+
+            return redirect()->route('admin.nosimGroup.index')->with(['success'=>'New NosimGroup updated Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());//
     }
 
     /**
@@ -101,6 +120,7 @@ class NosimGroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        NosimGroup::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

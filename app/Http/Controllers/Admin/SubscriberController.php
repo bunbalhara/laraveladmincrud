@@ -123,6 +123,7 @@ class SubscriberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Subscriber::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

@@ -100,17 +100,46 @@
                         <td>{{$question->question_full_answer}}</td>
                         <td>{{$question->question_status}}</td>
                         <td>
-                            <a href="{{route('admin.question.edit', $question->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
-                                <i class="la la-edit"></i>
-                            </a>
-                            <a href="{{route('admin.question.destroy',$question->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
-                                <i class="la la-remove"></i>
-                            </a>
+                            <div class="row w-100 d-flex justify-content-center">
+                                <a href="{{route('admin.question-.edit', $question->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <form method="POST" action="{{route('admin.question-.destroy',$question->id)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="delete-item m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">
+                                        <i class="la la-remove"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Do you really want to delete it?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" id="delet-confirm" class="btn btn-danger">Confirm</button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -123,6 +152,16 @@
                 pageLength: 10,
             });
             $(".m_selectpicker").selectpicker();
+
+            $(document).on('click','.delete-item', function (e) {
+                e.preventDefault();
+                let form = $(this).parents('form');
+                $('#m_modal_6').modal('show');
+                $('#delet-confirm').click(function () {
+                    form.submit();
+                })
+            })
+
         });
     </script>
 @endsection

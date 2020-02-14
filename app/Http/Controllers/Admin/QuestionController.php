@@ -82,6 +82,7 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Question::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

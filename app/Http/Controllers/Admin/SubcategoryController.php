@@ -52,6 +52,7 @@ class SubcategoryController extends Controller
             $subcategory->sub_category_name = $request->sub_category_name;
             $subcategory->sub_category_order = $request->sub_category_order;
             $subcategory->sub_category_status = $request->sub_category_status;
+            $subcategory->enabledForFreeUsers = $request->enabledForFreeUsers;
 
             $subcategory->save();
             return redirect()->route('admin.subcategory.index')->with(['success'=>'New Subcategory Created successfully!']);
@@ -68,7 +69,7 @@ class SubcategoryController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -79,7 +80,8 @@ class SubcategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subcategory = Subcategory::find($id);
+        return view('admin.subcategory.edit', compact('subcategory'));
     }
 
     /**
@@ -91,7 +93,27 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'category_id'=>'required',
+            'sub_category_name'=>'required',
+            'sub_category_order'=>'required',
+            'sub_category_status'=>'required',
+        ]);
+
+        if($validator->passes()){
+            $subcategory = Subcategory::find($id);
+
+            $subcategory->category_id = $request->category_id;
+            $subcategory->sub_category_name = $request->sub_category_name;
+            $subcategory->sub_category_order = $request->sub_category_order;
+            $subcategory->sub_category_status = $request->sub_category_status;
+            $subcategory->enabledForFreeUsers = $request->enabledForFreeUsers;
+
+            $subcategory->save();
+            return redirect()->route('admin.subcategory.index')->with(['success'=>'New Subcategory updated successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -102,6 +124,7 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Subcategory::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

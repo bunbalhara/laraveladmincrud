@@ -81,7 +81,8 @@ class NosimController extends Controller
      */
     public function edit($id)
     {
-        //
+        $nosim = Nosim::find($id);
+        return view('admin.nosim.edit', compact('nosim'));
     }
 
     /**
@@ -93,7 +94,27 @@ class NosimController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'nose_sub_category_id'=>'required',
+            'nose_group_id'=>'required',
+            'nose_name'=>'required',
+            'nose_status'=>'required',
+            'nose_order'=>'required',
+        ]);
+
+        if($validator->passes()){
+            $nose = Nosim::find($id);
+            $nose->nose_sub_category_id=$request->nose_sub_category_id;
+            $nose->nose_group_id=$request->nose_group_id;
+            $nose->nose_name=$request->nose_name;
+            $nose->nose_status=$request->nose_status;
+            $nose->nose_order=$request->nose_order;
+            $nose->save();
+
+            return redirect()->route('admin.nosim.index')->with(['success'=>'New Nosim updated Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -104,6 +125,7 @@ class NosimController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Nosim::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

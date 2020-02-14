@@ -77,7 +77,8 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.coupon.edit');
+        $coupon = Coupon::find($id);
+        return view('admin.coupon.edit',compact('coupon'));
     }
 
     /**
@@ -89,7 +90,23 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'code'=>'required|unique:coupons',
+            'status'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $coupon = Coupon::find($id);
+
+            $coupon->code = $request->code;
+            $coupon->status = $request->status;
+
+            $coupon->save();
+
+            return redirect()->route('admin.coupon.index')->with(['success'=>'New Coupon updated Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -100,6 +117,7 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Coupon::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }

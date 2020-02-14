@@ -75,7 +75,8 @@ class MatalotController extends Controller
      */
     public function edit($id)
     {
-        //
+        $matalot = Matalot::find($id);
+        return view('admin.matalot.edit', compact('matalot'));
     }
 
     /**
@@ -87,7 +88,21 @@ class MatalotController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'title'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $matalot = Matalot::find($id);
+
+            $matalot->matalaTitle = $request->title;
+
+            $matalot->save();
+
+            return redirect()->route('admin.matalot.index')->with(['success'=>'New Matalot updated Successfully!']);
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**
@@ -98,6 +113,7 @@ class MatalotController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Matalot::find($id)->delete();
+        return back()->with(['success'=>'One item deleted successfuly!']);
     }
 }
