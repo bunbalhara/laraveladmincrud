@@ -51,8 +51,8 @@
                         </select>
                     </div>
                     <div class="form-group m-form__group">
-                        <input type="checkbox" name="articleStatus" class=" m-input m-input--square" id="articleStatus" aria-describedby="emailHelp" placeholder="Enter Article Title">
-                        <label for="articleStatus">Article Status</label>
+                        <label for="writerId">Article Status</label>
+                        <input type="number" name="writerId" class="form-control m-input m-input--square" id="writerId" aria-describedby="emailHelp" placeholder="Enter Article Title">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -69,6 +69,10 @@
                         <textarea  name="articleShort" class="form-control m-input" id="articleShort" rows="3"></textarea>
                     </div>
 
+                    <div class="form-group m-form__group">
+                        <input type="checkbox" name="articleStatus" class=" m-input m-input--square" id="articleStatus" aria-describedby="emailHelp" placeholder="Enter Article Title">
+                        <label for="articleStatus">Article Status</label>
+                    </div>
                 </div>
             </div>
         </div>

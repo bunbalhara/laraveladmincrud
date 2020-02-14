@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class BlogPostController extends Controller
 {
@@ -37,7 +38,27 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'postUrl'=>'required',
+            'sub_category_id'=>'required',
+            'title'=>'required',
+            'thumbnail'=>'required'
+        ]);
+
+        if($validator->passes()){
+            $blogpost = new BlogPost();
+
+            $blogpost->postUrl=$request->postUrl;
+            $blogpost->sub_category_id = $request->sub_category_id;
+            $blogpost->title= $request->title;
+            $blogpost->thumbnail = $request->thumbnail;
+
+            $blogpost->save();
+
+            return redirect()->route('admin.blogpost.index')->with('success','New Blog Post created Successfully!');
+        }
+
+        return back()->withErrors($validator->errors()->all());
     }
 
     /**

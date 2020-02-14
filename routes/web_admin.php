@@ -19,7 +19,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin','middleware
 
     Route::resource('article', 'ArticleController');
 
-    Route::resource('blogPost', 'BlogPostController');
+    Route::resource('blogpost', 'BlogPostController');
 
     Route::resource('category', 'CategoryController');
 

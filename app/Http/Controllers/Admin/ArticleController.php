@@ -48,6 +48,7 @@ class ArticleController extends Controller
                 'articleLong'=>'required',
                 'articleNoHide'=>'required',
                 'articleShort'=>'required',
+                'writerId'=>'required',
             ]);
 
         if($validator->passes()){

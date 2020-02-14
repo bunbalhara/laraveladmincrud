@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="m-menu__item " aria-haspopup="true">
-                    <a href="{{route('admin.blogPost.index')}}" class="m-menu__link ">
+                    <a href="{{route('admin.blogpost.index')}}" class="m-menu__link ">
                         <i class="m-menu__link-icon fa fa-user"></i>
                         <span class="m-menu__link-text">Blog Posts</span>
                     </a>
