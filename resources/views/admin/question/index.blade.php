@@ -91,20 +91,20 @@
                         <td>{{$question->id}}</td>
                         <td>{{$question->noseId}}</td>
                         <td>{{$question->matalaId}}</td>
-                        <td>{{$question->question_text}}</td>
-                        <td>{{$question->question_answer_1}}</td>
-                        <td>{{$question->question_answer_2}}</td>
-                        <td>{{$question->question_answer_3}}</td>
+                        <td>{!!$question->question_text!!}</td>
+                        <td>{!!$question->question_answer_1!!}</td>
+                        <td>{!!$question->question_answer_2!!}</td>
+                        <td>{!!$question->question_answer_3!!}</td>
                         <td>{{$question->question_right_answer}}</td>
                         <td>{{$question->question_points}}</td>
-                        <td>{{$question->question_full_answer}}</td>
+                        <td>{!!$question->question_full_answer!!}</td>
                         <td>{{$question->question_status}}</td>
                         <td>
                             <div class="row w-100 d-flex justify-content-center">
-                                <a href="{{route('admin.question-.edit', $question->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
+                                <a href="{{route('admin.question.edit', $question->id)}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
                                     <i class="la la-edit"></i>
                                 </a>
-                                <form method="POST" action="{{route('admin.question-.destroy',$question->id)}}">
+                                <form method="POST" action="{{route('admin.question.destroy',$question->id)}}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <button type="submit" class="delete-item m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">

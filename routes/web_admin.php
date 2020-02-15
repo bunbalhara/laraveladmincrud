@@ -39,4 +39,5 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin','middleware
 
     Route::resource('subscriber', 'SubscriberController');
 
+
 });
