@@ -32,11 +32,9 @@
                         <div class="form-group m-form__group">
                             <label for="sub_category_id">Subcategory</label>
                             <select class="form-control m-input m-input--square" name="sub_category_id" id="sub_category_id">
-                                <option value="1">Subcategory 1</option>
-                                <option value="2">Subcategory 2</option>
-                                <option value="3">Subcategory 3</option>
-                                <option value="4">Subcategory 4</option>
-                                <option value="5">SubCategory 5</option>
+                                @foreach($subcategories as $subcategory)
+                                    <option value="{{$subcategory->id}}">{{$subcategory->sub_category_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -46,7 +44,7 @@
                             <input  name="title" class="form-control m-input" id="title" rows="3">
                         </div>
                         <div class="form-group m-form__group">
-                            <label for="thumbnail">Article No Hide</label>
+                            <label for="thumbnail">Thumbnail</label>
                             <input  name="thumbnail" class="form-control m-input" id="thumbnail" rows="3">
                         </div>
                     </div>

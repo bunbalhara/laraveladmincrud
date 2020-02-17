@@ -15,10 +15,11 @@ class CreateNosimGroupsTable extends Migration
     {
         Schema::create('nosim_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('subcat_id')->default(0);
+            $table->unsignedBigInteger('subcat_id')->default(0);
             $table->string('name',255);
             $table->integer('ord')->default(0);
             $table->timestamps();
+            $table->foreign('subcat_id')->references('id')->on('subcategories')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE nosim_groups ENGINE=InnoDB AUTO_INCREMENT=602 DEFAULT CHARSET=latin1;');
     }

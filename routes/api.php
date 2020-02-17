@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('uploadImage', 'Admin\QuestionController@uploadImage')->name('uploadImage');
+Route::post('article-uploadImage', 'Admin\ArticleController@uploadImage')->name('article-uploadImage');
 

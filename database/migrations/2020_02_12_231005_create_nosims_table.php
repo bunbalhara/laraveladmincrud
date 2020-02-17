@@ -16,12 +16,14 @@ class CreateNosimsTable extends Migration
     {
         Schema::create('nosims', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('nose_sub_category_id');
-            $table->integer('nose_group_id')->default(0);
+            $table->unsignedBigInteger('nose_sub_category_id');
+            $table->unsignedBigInteger('nose_group_id')->default(0);
             $table->string('nose_name',255);
             $table->integer('nose_status')->default(1);
             $table->integer('nose_order')->default(1);
             $table->timestamps();
+            $table->foreign('nose_group_id')->references('id')->on('nosim_groups')->onDelete('cascade');
+            $table->foreign('nose_sub_category_id')->references('id')->on('subcategories')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE nosims ENGINE=InnoDB AUTO_INCREMENT=2055 DEFAULT CHARSET=latin1;');
     }

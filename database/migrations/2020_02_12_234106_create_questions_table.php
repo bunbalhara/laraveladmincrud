@@ -16,8 +16,8 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('noseId');
-            $table->integer('matalaId');
+            $table->unsignedBigInteger('noseId');
+            $table->unsignedBigInteger('matalaId');
             $table->text('question_text');
             $table->text('question_answer_1');
             $table->text('question_answer_2');
@@ -27,6 +27,7 @@ class CreateQuestionsTable extends Migration
             $table->text('question_full_answer');
             $table->integer('question_status')->default(1);
             $table->timestamps();
+            $table->foreign('noseId')->references('id')->on('nosims')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE questions ENGINE=InnoDB AUTO_INCREMENT=117975 DEFAULT CHARSET=latin1;');
     }

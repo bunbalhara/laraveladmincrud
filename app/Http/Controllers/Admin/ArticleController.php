@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ArticleExport;
 use App\Models\Article;
+use App\Models\Nosim;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ArticleController extends Controller
 {
@@ -28,7 +31,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.article.create');
+        $noses = Nosim::all();
+        return view('admin.article.create',compact('noses'));
     }
 
     /**
@@ -92,8 +96,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        $noses = Nosim::all();
         $article = Article::find($id);
-        return view('admin.article.edit', compact('article'));
+        return view('admin.article.edit', compact('article','noses'));
     }
 
     /**
@@ -143,12 +148,35 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $article = Article::find($id);
         $article->delete();
         return back()->with(['success','One Article deleted successfully!']);
+    }
+
+    public function uploadImage(Request $request){
+        try{
+            $file=$request->file('file');
+            $name = uniqid() . '_' . trim($file->getClientOriginalName());
+            $path= asset('assets/images/article/'.$name);
+            $file->move(public_path('assets/images/article/'), $name);
+            $fileNameToStore= $path;
+            return json_encode(['location' => $fileNameToStore]);
+        }
+        catch(\Exception $e){
+            echo json_encode($e->getMessage());
+        }
+    }
+
+    public function filter(Request $request){
+        $articles = Article::all();
+        return view('admin.article.index',compact('articles'));
+    }
+
+    public function exportCSV(){
+        return Excel::download(new ArticleExport,'article-'.date('Y-m-d H:i:s',time()).'.csv');
     }
 }

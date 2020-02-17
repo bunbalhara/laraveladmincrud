@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
-class CreateMatalotsTable extends Migration
+
+class CreateFilesUploadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +14,12 @@ class CreateMatalotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('matalots', function (Blueprint $table) {
+        Schema::create('files_upload', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('matalaTitle',255);
+            $table->string('file_name', 100)->nullable();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE matalots ENGINE=InnoDB AUTO_INCREMENT=621 DEFAULT CHARSET=latin1;');
+        DB::statement("ALTER TABLE files_upload ENGINE=MyISAM AUTO_INCREMENT=564 DEFAULT CHARSET=latin1;");
     }
 
     /**
@@ -28,6 +29,6 @@ class CreateMatalotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matalots');
+        Schema::dropIfExists('files_upload');
     }
 }

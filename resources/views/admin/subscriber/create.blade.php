@@ -54,8 +54,9 @@
                         <div class="form-group m-form__group">
                             <label for="noseId">Select Nose</label>
                             <select class="form-control m-input m-input--square" name="noseId" id="noseId">
-                                <option value="1">Nose 1</option>
-                                <option value="2">Nose 2</option>
+                                @foreach($noses as $nose)
+                                    <option value="{{$nose->id}}">{{$nose->nose_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group m-form__group">

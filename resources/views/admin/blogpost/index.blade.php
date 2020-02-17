@@ -81,7 +81,7 @@
                     <tr>
                         <td>{{$blogpost->id}}</td>
                         <td>{{$blogpost->postUrl}}</td>
-                        <td>{{$blogpost->sub_category_id}}</td>
+                        <td>{{$blogpost->subcategory->name}}</td>
                         <td>{{$blogpost->title}}</td>
                         <td>{{$blogpost->thumbnail}}</td>
                         <td>{{$blogpost->created_at}}</td>

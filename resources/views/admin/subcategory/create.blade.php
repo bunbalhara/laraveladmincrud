@@ -28,10 +28,9 @@
                         <div class="form-group m-form__group">
                             <label for="category_id">Select Cateogory</label>
                             <select class="form-control m-input m-input--square" name="category_id" id="category_id">
-                                <option value="1">Category 1</option>
-                                <option value="2">Category 2</option>
-                                <option value="3">Category 3</option>
-                                <option value="4">Category 4</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 

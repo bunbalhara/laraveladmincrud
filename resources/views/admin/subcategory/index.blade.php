@@ -84,7 +84,7 @@
                 @foreach($subcategories as $subcategory)
                     <tr>
                         <td>{{$subcategory->id}}</td>
-                        <td>{{$subcategory->category_id}}</td>
+                        <td>{{$subcategory->category->category_name}}</td>
                         <td>{{$subcategory->sub_category_name}}</td>
                         <td>{{$subcategory->sub_category_order}}</td>
                         <td>{{$subcategory->sub_category_status}}</td>

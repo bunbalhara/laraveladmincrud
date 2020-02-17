@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
 
-class CreateBlogPostsTable extends Migration
+class CreateBlogpostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,16 @@ class CreateBlogPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_posts', function (Blueprint $table) {
+        Schema::create('blogposts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('postUrl',500);
-            $table->integer('sub_category_id');
+            $table->unsignedBigInteger('sub_category_id');
             $table->string('title',300);
             $table->string('thumbnail',500);
             $table->timestamps();
+            $table->foreign('sub_category_id')->references('id')->on('subcategories')->onDelete('cascade');
         });
-        DB::statement("ALTER TABLE blog_posts ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;");
+        DB::statement("ALTER TABLE blogposts ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;");
     }
 
     /**
@@ -32,6 +32,6 @@ class CreateBlogPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_posts');
+        Schema::dropIfExists('blogposts');
     }
 }

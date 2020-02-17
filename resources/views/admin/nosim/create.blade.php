@@ -26,22 +26,20 @@
                     <div class="col-md-6">
 
                         <div class="form-group m-form__group">
-                            <label for="nose_sub_category_id">Nosim Group</label>
+                            <label for="nose_sub_category_id">Select Subcategory</label>
                             <select class="form-control m-input m-input--square" name="nose_sub_category_id" id="nose_sub_category_id">
-                                <option value="1">nosim Subcategory group1</option>
-                                <option value="2">nosim Subcategory group2</option>
-                                <option value="3">nosim Subcategory group3</option>
-                                <option value="4">nosim Subcategory group4</option>
+                                @foreach($subcategories as $subcategory)
+                                    <option value="{{$subcategory->id}}">{{$subcategory->sub_category_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group m-form__group">
                             <label for="nose_group_id">Nosim Group</label>
                             <select class="form-control m-input m-input--square" name="nose_group_id" id="nose_group_id">
-                                <option value="1">nosim group1</option>
-                                <option value="2">nosim group2</option>
-                                <option value="3">nosim group3</option>
-                                <option value="4">nosim group4</option>
+                                @foreach($noseGroups as $noseGroup)
+                                    <option value="{{$noseGroup->id}}">{{$noseGroup->name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -60,7 +58,7 @@
                         </div>
 
                         <div class="form-group m-form__group">
-                            <label for="nose_order">Category Type</label>
+                            <label for="nose_order">Nosim Order</label>
                             <input type="number"  name="nose_order" class="form-control m-input" id="nose_order" >
                         </div>
                     </div>

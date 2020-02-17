@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\BlogPost;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        return view('admin.blogpost.create');
+        $subcategories = Subcategory::all();
+        return view('admin.blogpost.create',compact('subcategories'));
     }
 
     /**

@@ -27,6 +27,7 @@ class CreateArticlesTable extends Migration
             $table->integer('articleStatus')->default(1);
             $table->integer('type')->default(1);
             $table->timestamps();
+            $table->foreign('nose_id')->references('id')->on('nosims')->onDelete('cascade');
         });
         DB::statement("ALTER TABLE articles ENGINE=InnoDB AUTO_INCREMENT=2337 DEFAULT CHARSET=latin1");
     }

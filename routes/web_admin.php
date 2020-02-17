@@ -17,7 +17,14 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin','middleware
 
 	Route::resource('user', 'UserController');
 
+
+    Route::group(['as'=>'article.','prefix'=>'article'],function (){
+        Route::post('filter','ArticleController@filter')->name('filter');
+        Route::get('/exportCSV','ArticleController@exportCSV')->name('export');
+    });
     Route::resource('article', 'ArticleController');
+
+
 
     Route::resource('blogpost', 'BlogPostController');
 
@@ -38,6 +45,5 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin','middleware
     Route::resource('subcategory', 'SubcategoryController');
 
     Route::resource('subscriber', 'SubscriberController');
-
 
 });

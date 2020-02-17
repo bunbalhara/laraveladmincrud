@@ -81,8 +81,8 @@
                 @foreach($noses as $nose)
                     <tr>
                         <td>{{$nose->id}}</td>
-                        <td>{{$nose->nose_sub_category_id}}</td>
-                        <td>{{$nose->nose_group_id}}</td>
+                        <td>{{$nose->subcategory->sub_category_name}}</td>
+                        <td>{{$nose->noseGroup->name}}</td>
                         <td>{{$nose->nose_name}}</td>
                         <td>{{$nose->nose_status}}</td>
                         <td>{{$nose->nose_order}}</td>

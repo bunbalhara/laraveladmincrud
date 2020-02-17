@@ -18,20 +18,28 @@
     </div>
     <div class="col-sm-6">
         <div class="row">
-            <div class="col-sm-8">
-                <select class="form-control m_selectpicker" placeholder="Status">
-                    <option selected disabled hidden>Choose Status</option>
-                    <option >Active</option>
-                    <option >InActive</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <a href="javascript:void(0);" class="btn m-btn--square btn-outline-info" id="filter_btn" style="float:right;">
-                    Filter
-                </a>
-            </div>
-            <div class="col-sm-2">
-                <a href="javascript:void(0);" class="btn m-btn--square btn-outline-info" id="filter_btn" style="float:right;">
+            <form class="col-sm-8" method="POST" action="{{route('admin.article.filter')}}">
+                @csrf
+                <div class="row">
+                    <div class="col-sm-5">
+                        <select class="form-control m_selectpicker" placeholder="Filter Opsion" name="filter_option">
+                            <option value="nose">By Nose Name </option>
+                            <option value="status">By Article Status </option>
+                            <option value="type">By Article Type </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" placeholder="Enter a Filter Value" name="filter_value" required/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn m-btn--square btn-outline-info" id="filter_btn" style="float:right;">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="col-sm-4 pull-right">
+                <a href="{{route('admin.article.export')}}" class="btn m-btn--square btn-outline-info" id="filter_btn" style="float:right;">
                     Export to CSV
                 </a>
             </div>
@@ -89,10 +97,10 @@
                 @foreach($articles as $article)
                     <tr>
                         <td>{{$article->id}}</td>
-                        <td>{{$article->nose_id}}</td>
+                        <td>{{$article->nosim->nose_name}}</td>
                         <td>{{$article->articleTitle}}</td>
                         <td>{{$article->articleShort}}</td>
-                        <td>{{$article->articleLong}}</td>
+                        <td>{!!$article->articleLong!!}</td>
                         <td>{{$article->articleNoHide}}</td>
                         <td>{{$article->articleDate}}</td>
                         <td>{{$article->writerId}}</td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\NosimGroup;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class NosimGroupController extends Controller
      */
     public function create()
     {
-        return view('admin.nosimgroup.create');
+        $subcategories = Subcategory::all();
+        return view('admin.nosimgroup.create', compact('subcategories'));
     }
 
     /**

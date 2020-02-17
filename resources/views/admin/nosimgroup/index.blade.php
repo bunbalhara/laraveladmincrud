@@ -79,7 +79,7 @@
                 @foreach($nosimGroups as $nosimGroup)
                     <tr>
                         <td>{{$nosimGroup->id}}</td>
-                        <td>{{$nosimGroup->subcat_id}}</td>
+                        <td>{{$nosimGroup->subcategory->sub_category_name}}</td>
                         <td>{{$nosimGroup->name}}</td>
                         <td>{{$nosimGroup->ord}}</td>
                         <td>{{$nosimGroup->created_at}}</td>

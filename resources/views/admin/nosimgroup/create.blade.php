@@ -28,10 +28,9 @@
                         <div class="form-group m-form__group">
                             <label for="subcat_id">Subcategory</label>
                             <select class="form-control m-input m-input--square" name="subcat_id" id="subcat_id">
-                                <option value="1">Subcategory1</option>
-                                <option value="2">Subcategory2</option>
-                                <option value="3">Subcategory3</option>
-                                <option value="4">Subcategory4</option>
+                                @foreach($subcategories as $subcategory)
+                                    <option value="{{$subcategory->id}}">{{$subcategory->sub_category_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 

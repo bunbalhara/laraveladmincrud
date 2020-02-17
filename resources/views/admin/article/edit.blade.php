@@ -27,8 +27,8 @@
                         <div class="form-group m-form__group">
                             <label for="noseId">Select Nose</label>
                             <select class="form-control m-input m-input--square" name="noseId" id="noseId">
-                                @foreach([1,2] as $nose)
-                                    <option value="{{$nose}}" {{$nose==$article->nose_id?'selected':''}}>Nose {{$nose}}</option>
+                                @foreach($noses as $nose)
+                                    <option value="{{$nose->id}}" {{$nose->id==$article->nose_id?'selected':''}}>Nose {{$nose->nose_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -49,16 +49,14 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+
                         <div class="form-group m-form__group">
                             <label for="writerId">Article WriterID</label>
                             <input type="number" value="{{$article->writerId}}" name="writerId" class="form-control m-input m-input--square" id="writerId" aria-describedby="emailHelp" placeholder="Enter Article Title">
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group m-form__group">
-                            <label for="articleLong">Article Long</label>
-                            <textarea  name="articleLong" class="form-control m-input" id="articleLong" rows="3"> {{$article->articleLong}} </textarea>
-                        </div>
+
                         <div class="form-group m-form__group">
                             <label for="articleNoHide">Article No Hide</label>
                             <textarea  name="articleNoHide" class="form-control m-input" id="articleNoHide" rows="3">{{$article->articleNoHide}}</textarea>
@@ -74,6 +72,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group m-form__group">
+                    <label for="articleLong">Article Long</label>
+                    <textarea  name="articleLong" class="form-control m-input" id="articleLong" rows="3"> {{$article->articleLong}} </textarea>
+                </div>
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
                 <div class="m-form__actions">
@@ -85,6 +87,53 @@
     </div>
 @endsection
 
-@section('page_script')
+@section('page_scripts')
+    <script src="{{asset('assets/vendors/header/actions.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/vendors/tinymce.min.js')}}" type="text/javascript"></script>
+    <script>
+        AddTinyMce();
+        function AddTinyMce() {
+            tinymce.init({
+                selector: 'textarea#articleLong',
+                height: 500,
+                theme: 'modern',
+                plugins: [
+                    'advlist autolink autosave lists codesample link image charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen',
+                    'insertdatetime media nonbreaking save table directionality',
+                    'emoticons paste textpattern imagetools textcolor colorpicker autoresize'
+                ],
+                toolbar1: 'fontselect | fontsizeselect | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | print preview media | codesample jsplusEditTag | emoticons | link unlink image jsplus_templates',
+                remove_script_host: false,
+                convert_urls: true,
+                image_title: true,
+                automatic_uploads: true,
+                relative_urls: false,
+                images_upload_url: '{{route('article-uploadImage')}}',
+                file_picker_types: 'image',
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
 
+                    input.onchange = function () {
+                        var file = this.files[0];
+
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+                            cb(blobInfo.blobUri(), {title: file.name});
+                        };
+                    };
+                    input.click();
+                },
+            });
+
+        }
+    </script>
 @endsection
